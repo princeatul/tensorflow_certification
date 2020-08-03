@@ -40,3 +40,10 @@ y_pred = model.predict(X_new)
 
 print(y_pred)
 y_train[:3]
+
+
+# saving the model
+model.save('model/sequential_california_housing.h5')
+
+# loading the model
+model = keras.models.load_model('model/sequential_california_housing.h5')
