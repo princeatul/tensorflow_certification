@@ -42,8 +42,17 @@ print(y_pred)
 y_train[:3]
 
 
-# saving the model
-model.save('model/sequential_california_housing.h5')
+# wide and deep neural network
+# created an input object. It specifies the kind of input the model will get
+input_ = keras.layers.Input(shape=X_train.shape[1:])
+# created a dense layer with 30 neurons. We are calling it like a function and passing the input object.
+# That is why this is called the Functional API.  We are defining how keras should connect the layers
+hidden1 = keras.layers.Dense(30, activation="relu")(input_)
+hidden2 = keras.layers.Dense(30, activatio="relu")(hidden1)
 
-# loading the model
-model = keras.models.load_model('model/sequential_california_housing.h5')
+concat = keras.layers.Concatenate()([input_, hidden2])
+output = keras.layers.Dense(1)(concat)
+
+model = keras.Model(inputs=[input_], outputs=[output])
+
+
